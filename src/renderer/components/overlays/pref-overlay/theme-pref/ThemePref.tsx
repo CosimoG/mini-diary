@@ -28,41 +28,39 @@ export default function ThemePrefComponent(props: Props): ReactElement {
 		<fieldset className="fieldset-theme">
 			<legend>{translations.theme}</legend>
 			<div className="fieldset-content">
-				<div className="form-group">
-					{/* Display "Auto" option if Electron supports theme detection for current OS */}
-					{supportsNativeTheme() && (
-						<label htmlFor="radio-theme-auto">
-							<input
-								type="radio"
-								name="radio-theme-auto"
-								id="radio-theme-auto"
-								checked={themePref === "auto"}
-								onChange={setThemePrefAuto}
-							/>
-							{translations.auto}
-						</label>
-					)}
-					<label htmlFor="radio-theme-light">
+				{/* Display "Auto" option if Electron supports theme detection for current OS */}
+				{supportsNativeTheme() && (
+					<label htmlFor="radio-theme-auto">
 						<input
 							type="radio"
-							name="radio-theme-light"
-							id="radio-theme-light"
-							checked={themePref === "light"}
-							onChange={setThemePrefLight}
+							name="radio-theme-auto"
+							id="radio-theme-auto"
+							checked={themePref === "auto"}
+							onChange={setThemePrefAuto}
 						/>
-						{translations.light}
+						{translations.auto}
 					</label>
-					<label htmlFor="radio-theme-dark">
-						<input
-							type="radio"
-							name="radio-theme-dark"
-							id="radio-theme-dark"
-							checked={themePref === "dark"}
-							onChange={setThemePrefDark}
-						/>
-						{translations.dark}
-					</label>
-				</div>
+				)}
+				<label htmlFor="radio-theme-light">
+					<input
+						type="radio"
+						name="radio-theme-light"
+						id="radio-theme-light"
+						checked={themePref === "light"}
+						onChange={setThemePrefLight}
+					/>
+					{translations.light}
+				</label>
+				<label htmlFor="radio-theme-dark">
+					<input
+						type="radio"
+						name="radio-theme-dark"
+						id="radio-theme-dark"
+						checked={themePref === "dark"}
+						onChange={setThemePrefDark}
+					/>
+					{translations.dark}
+				</label>
 			</div>
 		</fieldset>
 	);

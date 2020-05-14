@@ -11,6 +11,7 @@ const today = createDate();
 
 const initialState: DiaryState = {
 	dateSelected: today,
+	monthSelected: today,
 	searchKey: "",
 	searchResults: [],
 };
@@ -21,6 +22,7 @@ function diaryReducer(state = initialState, action: DiaryAction): DiaryState {
 			return {
 				...state,
 				dateSelected: action.payload.dateSelected,
+				monthSelected: action.payload.dateSelected,
 			};
 		}
 		case SET_SEARCH_KEY: {

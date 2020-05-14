@@ -5,6 +5,7 @@ import { Action } from "redux";
 
 export interface DiaryState {
 	dateSelected: Moment;
+	monthSelected: Moment;
 	searchKey: string;
 	searchResults: string[];
 }

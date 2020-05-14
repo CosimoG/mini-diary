@@ -1,4 +1,4 @@
-import { Moment } from "moment";
+import moment, { Moment } from "moment";
 
 import { MAX_DATE, MIN_DATE } from "../../constants";
 import { createDate, parseDate } from "../../utils/dateFormat";
@@ -61,8 +61,7 @@ export const setDaySelectedNext = (): ThunkActionT => (dispatch, getState): void
 	const { allowFutureEntries } = app;
 	const { dateSelected } = diary;
 	const nextDay = parseDate(dateSelected).add(1, "days");
-	const today = createDate();
-	if (allowFutureEntries || nextDay.isSameOrBefore(today, "day")) {
+	if (allowFutureEntries || nextDay.isSameOrBefore(createDate(), "day")) {
 		dispatch(setDateSelected(nextDay));
 	}
 };
@@ -81,17 +80,22 @@ export const setDaySelectedToday = (): ThunkActionT => (dispatch): void => {
 export const setMonthSelectedNext = (): ThunkActionT => (dispatch, getState): void => {
 	const { app, diary } = getState();
 	const { allowFutureEntries } = app;
-	const { dateSelected } = diary;
+	const { monthSelected } = diary;
+	const nextMonth = moment
+		.utc(monthSelected)
+		.add(1, "months")
+		.startOf("month");
 	const today = createDate();
-	let newDateSelected = parseDate(dateSelected).add(1, "months");
-	if (!allowFutureEntries && newDateSelected.isAfter(today)) {
-		newDateSelected = today;
+	if (allowFutureEntries || nextMonth.isSameOrBefore(today, "month")) {
+		dispatch(setDateSelected(createDate()));
 	}
-	dispatch(setDateSelected(newDateSelected));
 };
 
 export const setMonthSelectedPrevious = (): ThunkActionT => (dispatch, getState): void => {
-	const { dateSelected } = getState().diary;
-	const previousMonth = parseDate(dateSelected).subtract(1, "months");
+	const { monthSelected } = getState().diary;
+	const previousMonth = moment
+		.utc(monthSelected)
+		.subtract(1, "months")
+		.startOf("month");
 	dispatch(setDateSelected(previousMonth));
 };

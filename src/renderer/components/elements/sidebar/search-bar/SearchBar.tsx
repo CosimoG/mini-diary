@@ -4,12 +4,13 @@ import { Moment } from "moment";
 import React, { ChangeEvent, PureComponent, ReactNode } from "react";
 
 import TodayIcon from "../../../../assets/icons/today.svg";
-import { createDate } from "../../../../utils/dateFormat";
+import { createDate, parseDate } from "../../../../utils/dateFormat";
 import { translations } from "../../../../utils/i18n";
 import { iconProps } from "../../../../utils/icons";
 
 export interface StateProps {
 	dateSelected: Moment;
+	monthSelected: Moment;
 	searchKey: string;
 }
 
@@ -74,11 +75,12 @@ export default class SearchBar extends PureComponent<Props, State> {
 	}
 
 	render(): ReactNode {
-		const { dateSelected } = this.props;
+		const { dateSelected, monthSelected } = this.props;
 		const { newSearchKey } = this.state;
 
 		const today = createDate();
-		const isToday = dateSelected.isSame(today, "day");
+		const isToday = parseDate(dateSelected).isSame(today, "day");
+		const isCurrentMonth = parseDate(monthSelected).isSame(today, "month");
 
 		return (
 			<div className="view-selector">
@@ -106,7 +108,7 @@ export default class SearchBar extends PureComponent<Props, State> {
 				<button
 					type="button"
 					className="button button-invisible button-today"
-					disabled={isToday}
+					disabled={isToday && isCurrentMonth}
 					onClick={this.onTodaySelection}
 				>
 					<TodayIcon {...iconProps} title={translations.today} />

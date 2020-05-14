@@ -9,7 +9,7 @@ import CalendarNav, { DispatchProps, StateProps } from "./CalendarNav";
 
 const mapStateToProps = (state: RootState): StateProps => ({
 	allowFutureEntries: state.app.allowFutureEntries,
-	dateSelected: state.diary.dateSelected,
+	monthSelected: state.diary.monthSelected,
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatchT): DispatchProps => ({

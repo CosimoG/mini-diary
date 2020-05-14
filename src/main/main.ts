@@ -13,10 +13,7 @@ import { getWindow, setWindow } from "./window";
 
 initLogger();
 electronDebug();
-contextMenu({
-	showCopyImage: false,
-	showSearchWithGoogle: false,
-});
+contextMenu();
 
 async function createWindow(): Promise<BrowserWindow> {
 	const win = new BrowserWindow({
